@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usuarios-deployment
+  labels:
+    app: usuarios-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: usuarios-app
+  template:
+    metadata:
+      labels:
+        app: usuarios-app
+    spec:
+      containers:
+        - name: usuarios-app
+          image: gcr.io/secret-zephyr-380100/api-usuarios
+          ports:
+            - containerPort: 8080
