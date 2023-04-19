@@ -1,25 +1,27 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { validarJWT, validarCampos } = require('../middlewares');
-const { crearMiembro } = require('../controllers/miembros');
+const { validarJWT, validarCampos, esAdminRole } = require('../middlewares');
+const { crearMiembro, 
+        obtenerMiembros, 
+        obtenerMiembro, 
+        actualizarMiembro, 
+        eliminarMiembro} = require('../controllers/miembros');
+const { existeMiembroPorId } = require('../helpers/db-validators');
 
 const router = Router();
 
 
 //obtener todos los miembros
-router.get('/', (req, res) => {
-
-    res.json('get');
-
-});
+router.get('/', obtenerMiembros );
 
 //obtener un miembro por id
-router.get('/:id', (req, res) => {
+router.get('/:id', [
+    check('id', 'No es un id de mongo válido').isMongoId(),
+    check('id').custom( existeMiembroPorId ),
+    validarCampos,
 
-    res.json('get id');
-
-});
+], obtenerMiembro );
 
 //crear un miembro
 router.post('/',  [ 
@@ -29,18 +31,21 @@ router.post('/',  [
 ], crearMiembro);
 
 //actualizar un miembro
-router.put('/:id', (req, res) => {
+router.put('/:id', [
+    validarJWT,
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('id').custom( existeMiembroPorId ),
+    validarCampos
+], actualizarMiembro );
 
-    res.json('put');
-
-});
-
-//eliminar un miembro
-router.delete('/:id', (req, res) => {
-
-    res.json('delete');
-
-});
+//eliminar un miembro actualizarMiembro
+router.delete('/:id', [
+    validarJWT,
+    esAdminRole,
+    check('id', 'No es un id de mongo válido').isMongoId(),
+    check('id').custom( existeMiembroPorId ),
+    validarCampos
+], eliminarMiembro );
 
 
 

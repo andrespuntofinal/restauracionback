@@ -8,6 +8,12 @@ const MiembroSchema = Schema({
         required: [true, 'El nombre es obligatorio']
     },
 
+    numero_id:{
+
+        type: String
+        
+    },
+
     email:{
 
         type: String
@@ -68,7 +74,7 @@ const MiembroSchema = Schema({
     tipo_miembro:{
 
         type: String,
-        emun: ['NUEVO', 'CONVERTIDO', 'SIMPATIZANTE']
+        emun: ['LIDER', 'NUEVO', 'ASISTENTE', 'PASTOR']
         
     },
 
@@ -80,6 +86,12 @@ const MiembroSchema = Schema({
     },
 
     fecha_membresia:{
+
+        type: String
+        
+    },
+
+    lider_contacto:{
 
         type: String
         
@@ -110,5 +122,11 @@ const MiembroSchema = Schema({
 
 
 });
+
+MiembroSchema.methods.toJSON = function(){
+
+    const { __v, ...data } = this.toObject();
+    return data;
+}
 
 module.exports = model('Miembro', MiembroSchema );

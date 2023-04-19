@@ -6,6 +6,7 @@ const  Miembro  = require('../models/miembro');
 const crearMiembro = async (req, res = response) =>{
 
     const nombre = req.body.nombre.toUpperCase();
+    const numero_id = req.body.numero_id;
     const email = req.body.email;
     const telefono = req.body.telefono;
     const barrio = req.body.barrio;
@@ -18,6 +19,7 @@ const crearMiembro = async (req, res = response) =>{
     const tipo_miembro = req.body.tipo_miembro;
     const bautizado = req.body.bautizado;
     const fecha_membresia = req.body.fecha_membresia;
+    const lider_contacto = req.body.lider_contacto;
     const ministerio_miembro = req.body.ministerio_miembro;
 
 
@@ -26,6 +28,7 @@ const crearMiembro = async (req, res = response) =>{
     const data = {
 
         nombre,
+        numero_id,
         telefono, 
         email, 
         barrio, 
@@ -38,11 +41,12 @@ const crearMiembro = async (req, res = response) =>{
         tipo_miembro, 
         bautizado, 
         fecha_membresia, 
+        lider_contacto,
         ministerio_miembro,
         usuario: req.usuario._id
     }
 
-    console.log("hhhhhh", data);
+   // console.log("hhhhhh", data);
 
     const miembro = new Miembro( data );
 
@@ -54,7 +58,76 @@ const crearMiembro = async (req, res = response) =>{
 
 }
 
+//Consultar miembros
+
+const obtenerMiembros =async (req = request, res = response) => {
+
+    const { limite = 5, desde = 0 } = req.query;
+    const query = { estado: true };
+    
+     
+    const [ total, miembros ] = await Promise.all([
+        Miembro.countDocuments(query),
+        Miembro.find(query)
+            .populate('usuario', 'nombre')
+            .skip( Number(desde) )
+            .limit( Number(limite) )
+
+
+    ])
+
+    res.json({
+       
+       total,
+       miembros
+    });
+}
+
+//consultar miembros por id
+
+const obtenerMiembro = async( req = request, res = response) => {
+
+    const { id } = req.params;
+    const miembro = await Miembro.findById( id ).populate('usuario', 'nombre');
+
+    res.json( miembro );
+
+} 
+
+//modificar miembros 
+
+const actualizarMiembro = async( req = request, res = response) => {
+
+    const { id } = req.params;
+    const { estado, usuario, ...data } = req.body;
+
+    data.nombre = data.nombre.toUpperCase();
+    data.usuario = req.usuario._id;
+
+
+    const miembro = await Miembro.findByIdAndUpdate( id, data, { new: true } );
+
+    res.json( miembro );
+
+} 
+
+//modificar miembros 
+
+const eliminarMiembro = async( req = request, res = response) => {
+
+    const { id } = req.params;
+    
+    const miembroBorrado = await Miembro.findByIdAndUpdate( id, { estado: false }, { new: true } );
+
+    res.json( miembroBorrado );
+
+} 
+
 module.exports = {
-    crearMiembro
+    crearMiembro,
+    obtenerMiembros,
+    obtenerMiembro,
+    actualizarMiembro,
+    eliminarMiembro
 
 }
