@@ -7,7 +7,7 @@ const { crearMiembro,
         obtenerMiembro, 
         actualizarMiembro, 
         eliminarMiembro} = require('../controllers/miembros');
-const { existeMiembroPorId } = require('../helpers/db-validators');
+const { existeMiembroPorId, esMinisterioValido } = require('../helpers/db-validators');
 
 const router = Router();
 
@@ -27,6 +27,7 @@ router.get('/:id', [
 router.post('/',  [ 
     validarJWT,
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('ministerio').custom( esMinisterioValido ),
     validarCampos
 ], crearMiembro);
 

@@ -20,7 +20,7 @@ const crearMiembro = async (req, res = response) =>{
     const bautizado = req.body.bautizado;
     const fecha_membresia = req.body.fecha_membresia;
     const lider_contacto = req.body.lider_contacto;
-    const ministerio_miembro = req.body.ministerio_miembro;
+    const ministerio = req.body.ministerio;
 
 
     //generar data a guardar
@@ -42,7 +42,7 @@ const crearMiembro = async (req, res = response) =>{
         bautizado, 
         fecha_membresia, 
         lider_contacto,
-        ministerio_miembro,
+        ministerio,
         usuario: req.usuario._id
     }
 

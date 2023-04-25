@@ -1,5 +1,6 @@
 const miembro = require('../models/miembro');
 const Role = require('../models/role');
+const Ministerio = require('../models/ministerio');
 const Usuario = require('../models/usuario');
 
 const esRolValido = async (rol='') => {
@@ -7,6 +8,15 @@ const esRolValido = async (rol='') => {
 
     if ( !existeRol ) {
         throw new Error(`El rol ${rol} no está registrado en la DB`);
+        
+    }
+}
+
+const esMinisterioValido = async (ministerio='') => {
+    const existeministerio = await Ministerio.findOne({ ministerio });
+
+    if ( !existeministerio ) {
+        throw new Error(`El ministerio ${ministerio} no está registrado en la DB`);
         
     }
 }
@@ -47,6 +57,7 @@ const existeMiembroPorId = async ( id ) => {
 module.exports = {
 
     esRolValido,
+    esMinisterioValido,
     emailExiste,
     existeUsuarioPorId,
     existeMiembroPorId

@@ -61,7 +61,7 @@ const MiembroSchema = Schema({
 
     fecha_nacimiento:{
 
-        type: String
+        type: Date
         
     },
 
@@ -74,7 +74,7 @@ const MiembroSchema = Schema({
     tipo_miembro:{
 
         type: String,
-        emun: ['LIDER', 'NUEVO', 'ASISTENTE', 'PASTOR']
+        emun: ['LIDER', 'NUEVO', 'ASISTENTE IREGULAR', 'ASISTENTE REGULAR', 'PASTOR']
         
     },
 
@@ -87,7 +87,7 @@ const MiembroSchema = Schema({
 
     fecha_membresia:{
 
-        type: String
+        type: Date
         
     },
 
@@ -98,11 +98,9 @@ const MiembroSchema = Schema({
     },
 
     
-    ministerio_miembro:{
+    ministerio:{
 
-        type: String,
-        emun: ['ALABANZA', 'DIACONADO', 'EVANGELISMO', 'MAESTRO ED', 'JOVENES', 'MEDIOS', 'LIDER CELULA', 'VENTAS', 'OTROS']
-        
+        type: String
     },
 
     
