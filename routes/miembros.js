@@ -35,6 +35,7 @@ router.post('/',  [
 router.put('/:id', [
     validarJWT,
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('ministerio').custom( esMinisterioValido ),
     check('id').custom( existeMiembroPorId ),
     validarCampos
 ], actualizarMiembro );

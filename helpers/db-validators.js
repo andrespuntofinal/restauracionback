@@ -1,6 +1,8 @@
-const miembro = require('../models/miembro');
+const Miembro = require('../models/miembro');
+const Aporte = require('../models/aporte');
 const Role = require('../models/role');
 const Ministerio = require('../models/ministerio');
+const Tipoaporte = require('../models/tipoaporte');
 const Usuario = require('../models/usuario');
 
 const esRolValido = async (rol='') => {
@@ -20,6 +22,17 @@ const esMinisterioValido = async (ministerio='') => {
         
     }
 }
+
+const esTipoaporteValido = async (tipo_aporte='') => {
+    const existetipoaporte = await Tipoaporte.findOne({ tipo_aporte });
+
+    if ( !existetipoaporte ) {
+        throw new Error(`El tipo de aporte ${tipo_aporte} no está registrado en la DB`);
+        
+    }
+}
+
+
 
 const emailExiste = async (email ='') => {
      //Verificar correo
@@ -43,9 +56,19 @@ const existeUsuarioPorId = async ( id ) => {
 
 const existeMiembroPorId = async ( id ) => {
     //Verificar correo
-    const existeMiembro = await miembro.findById(id);
+    const existeMiembro = await Miembro.findById(id);
 
     if ( !existeMiembro ) {
+       throw new Error(`El id no existe ${ id }`);
+    }
+ 
+}
+
+const existeAportePorId = async ( id ) => {
+    //Verificar correo
+    const existeAporte = await Aporte.findById(id);
+
+    if ( !existeAporte ) {
        throw new Error(`El id no existe ${ id }`);
     }
  
@@ -60,5 +83,7 @@ module.exports = {
     esMinisterioValido,
     emailExiste,
     existeUsuarioPorId,
-    existeMiembroPorId
+    existeMiembroPorId,
+    existeAportePorId,
+    esTipoaporteValido
 }
