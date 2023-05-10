@@ -26,6 +26,12 @@ const MiembroSchema = Schema({
         
     },
 
+    celular:{
+
+        type: String
+        
+    },
+
     barrio:{
 
         type: String

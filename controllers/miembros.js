@@ -9,6 +9,7 @@ const crearMiembro = async (req, res = response) =>{
     const numero_id = req.body.numero_id;
     const email = req.body.email;
     const telefono = req.body.telefono;
+    const celular = req.body.celular;
     const barrio = req.body.barrio;
     const direccion = req.body.direccion;
     const sexo = req.body.sexo;
@@ -29,7 +30,8 @@ const crearMiembro = async (req, res = response) =>{
 
         nombre,
         numero_id,
-        telefono, 
+        telefono,
+        celular,
         email, 
         barrio, 
         direccion, 
