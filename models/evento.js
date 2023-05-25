@@ -2,14 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const EventoSchema = Schema({
 
-    id:{
-
-        type: Number,
-        required: true
-        
-    },
-
-
+    
     nombreevento:{
 
         type: String,
@@ -45,7 +38,14 @@ const EventoSchema = Schema({
     estadoevento:{
 
         type: Number
+    },
+
+    estado:{
+
+        type: Boolean,
+        default: true
     }
+    
 
   
 

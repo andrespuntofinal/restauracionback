@@ -2,14 +2,6 @@ const { Schema, model } = require('mongoose');
 
 const ReservaSchema = Schema({
 
-
-    id:{
-
-        type: Number,
-        required: true
-        
-    },
-
   
     identificacion:{
 

@@ -31,24 +31,20 @@ const crearEvento = async (req, res = response) =>{
 
 const obtenerEventos =async (req = request, res = response) => {
 
-    const { limite = 5, desde = 0 } = req.query;
-    const query = { estadoevento: 0 };
+   // const { limite = 5, desde = 0 } = req.query;
+    const query = { estado: true };
     
      
-    const [ total, eventos ] = await Promise.all([
-        Evento.countDocuments(query),
+    const eventos = await 
+       // Evento.countDocuments(query),
         Evento.find(query)
-            .skip( Number(desde) )
-            .limit( Number(limite) )
+          //  .skip( Number(desde) )
+         //   .limit( Number(limite) )
 
 
-    ])
+    
 
-    res.json({
-       
-       total,
-       eventos
-    });
+    res.json( eventos );
 }
 
 //consultar miembros por id
@@ -85,7 +81,7 @@ const eliminarEvento = async( req = request, res = response) => {
 
     const { id } = req.params;
     
-    const eventoBorrado = await Evento.findByIdAndUpdate( id, { estadoevento: 1 }, { new: true } );
+    const eventoBorrado = await Evento.findByIdAndUpdate( id, { estado: false }, { new: true } );
 
     res.json( eventoBorrado );
 
