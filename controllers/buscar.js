@@ -90,7 +90,8 @@ const buscarAportes = async( termino = '', res = response ) =>{
     if ( esMongoID ) {
 
         const aporte = await Aporte.findById( termino )
-        .populate('miembro', 'nombre');
+        .populate('miembro', 'nombre')
+        .populate('usuario', 'nombre');
         return res.json( {
 
             results: ( aporte ) ? [ aporte ] : []
@@ -105,9 +106,13 @@ const buscarAportes = async( termino = '', res = response ) =>{
 
     $or: [{  tipo_aporte: regex }
         ],
-    $and: [{ estado: true }]
+    $and: [{ estado: true }],
+    
 
- });
+ })
+        .populate('miembro', 'nombre')
+        .populate('usuario', 'nombre');
+ ;
 
 res.json({
 

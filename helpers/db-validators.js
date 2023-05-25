@@ -74,7 +74,15 @@ const existeAportePorId = async ( id ) => {
  
 }
 
+const existeEventoPorId = async ( id ) => {
+    //Verificar correo
+    const existeEvento = await Evento.findById(id);
 
+    if ( !existeEvento ) {
+       throw new Error(`El id no existe ${ id }`);
+    }
+ 
+}
 
 
 module.exports = {
@@ -85,5 +93,6 @@ module.exports = {
     existeUsuarioPorId,
     existeMiembroPorId,
     existeAportePorId,
-    esTipoaporteValido
+    esTipoaporteValido,
+    existeEventoPorId
 }

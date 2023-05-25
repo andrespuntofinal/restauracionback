@@ -14,7 +14,9 @@ class Server {
             miembros: '/api/miembros',
             aportes: '/api/aportes',
             usuarios: '/api/usuarios',
-            buscar: '/api/buscar'
+            buscar: '/api/buscar',
+            eventos: '/api/eventos',
+            reservas: '/api/reservas'
 
         }
         
@@ -55,6 +57,8 @@ class Server {
         this.app.use( this.paths.miembros, require('../routes/miembros'));
         this.app.use( this.paths.aportes, require('../routes/aportes'));
         this.app.use( this.paths.buscar, require('../routes/buscar'));
+        this.app.use( this.paths.eventos, require('../routes/eventos'));
+       // this.app.use( this.paths.reservas, require('../routes/reservas'));
     }
 
     listen() {

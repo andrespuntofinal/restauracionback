@@ -8,7 +8,7 @@ const dbConnection = async() => {
        await mongoose.connect( process.env.MONGODB_CNN )
        
 
-       console.log('DB Online');
+       console.log( `\x1b[33mEstado DB Mongo: \x1b[32m ✔ Activo \x1b[0m`);
         
     } catch (error) {
 
