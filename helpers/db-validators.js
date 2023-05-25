@@ -4,6 +4,8 @@ const Role = require('../models/role');
 const Ministerio = require('../models/ministerio');
 const Tipoaporte = require('../models/tipoaporte');
 const Usuario = require('../models/usuario');
+const Evento = require('../models/evento');
+const Reserva = require('../models/reserva');
 
 const esRolValido = async (rol='') => {
     const existeRol = await Role.findOne({ rol });
@@ -84,6 +86,16 @@ const existeEventoPorId = async ( id ) => {
  
 }
 
+const existeReservaPorId = async ( id ) => {
+    //Verificar correo
+    const existeReserva = await Reserva.findById(id);
+
+    if ( !existeReserva ) {
+       throw new Error(`El id no existe ${ id }`);
+    }
+ 
+}
+
 
 module.exports = {
 
@@ -94,5 +106,6 @@ module.exports = {
     existeMiembroPorId,
     existeAportePorId,
     esTipoaporteValido,
-    existeEventoPorId
+    existeEventoPorId,
+    existeReservaPorId
 }

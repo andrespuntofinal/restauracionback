@@ -42,11 +42,17 @@ const ReservaSchema = Schema({
         
     },
 
-    idevento:{
+     idevento: {
 
-        type: Number,
+        type: Schema.Types.ObjectId,
+        ref: 'Evento',
         required: true
-        
+    },
+
+    estado:{
+
+        type: Boolean,
+        default: true
     }
 
       

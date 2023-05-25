@@ -2,12 +2,12 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const { validarJWT, validarCampos, esAdminRole } = require('../middlewares');
-const { crearEvento, 
-    obtenerEventos, 
-    obtenerEvento, 
-    actualizarEvento, 
-    eliminarEvento} = require('../controllers/eventos');
-const { existeEventoPorId } = require('../helpers/db-validators');
+const { crearReserva, 
+    obtenerReservas, 
+    obtenerReserva, 
+    actualizarReserva, 
+    eliminarReserva} = require('../controllers/reservas');
+const { existeReservaPorId } = require('../helpers/db-validators');
 
 const router = Router();
 
@@ -15,16 +15,16 @@ const router = Router();
 //obtener todos los miembros
 router.get('/', [
     //validarJWT
-], obtenerEventos );
+], obtenerReservas );
 
 //obtener un miembro por id
 router.get('/:id', [
    // validarJWT,
    // check('id', 'No es un id de mongo válido').isMongoId(),
-    check('id').custom( existeEventoPorId ),
+    check('id').custom( existeReservaPorId ),
     validarCampos,
 
-], obtenerEvento );
+], obtenerReserva );
 
 //crear un miembro
 router.post('/',  [ 
@@ -32,7 +32,7 @@ router.post('/',  [
     //esAdminRole,
    // check('miembro', 'El miembro es obligatorio').not().isEmpty(),
     validarCampos
-], crearEvento);
+], crearReserva);
 
 //actualizar un miembro
 router.put('/:id', [
@@ -40,18 +40,18 @@ router.put('/:id', [
    // esAdminRole,
    // check('miembro', 'El miembro es obligatorio').not().isEmpty(),
    // check('tipo_aporte').custom( esTipoaporteValido ),
-    check('id').custom( existeEventoPorId ),
+    check('id').custom( existeReservaPorId ),
     validarCampos
-], actualizarEvento);
+], actualizarReserva);
 
 //eliminar un miembro actualizarMiembro
 router.delete('/:id', [
    // validarJWT,
    // esAdminRole,
    // check('id', 'No es un id de mongo válido').isMongoId(),
-    check('id').custom( existeEventoPorId ),
+    check('id').custom( existeReservaPorId ),
     validarCampos
-], eliminarEvento );
+], eliminarReserva );
 
 
 

@@ -57,7 +57,7 @@ const obtenerEvento = async( req = request, res = response) => {
 
     const { id } = req.params;
 
-    console.log("obtener id", id)
+    //console.log("obtener id", id)
 
     
     const evento = await Evento.findById( id )

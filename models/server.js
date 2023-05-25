@@ -58,7 +58,7 @@ class Server {
         this.app.use( this.paths.aportes, require('../routes/aportes'));
         this.app.use( this.paths.buscar, require('../routes/buscar'));
         this.app.use( this.paths.eventos, require('../routes/eventos'));
-       // this.app.use( this.paths.reservas, require('../routes/reservas'));
+        this.app.use( this.paths.reservas, require('../routes/reservas'));
     }
 
     listen() {
