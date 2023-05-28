@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: usuarios-deployment
+  name: restauracion-deployment
   labels:
-    app: usuarios-app
+    app: restauracion-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: usuarios-app
+      app: restauracion-app
   template:
     metadata:
       labels:
-        app: usuarios-app
+        app: restauracion-app
     spec:
       containers:
-        - name: usuarios-app
-          image: gcr.io/secret-zephyr-380100/api-usuarios
+        - name: restauracion-app
+          image: gcr.io/secret-zephyr-380100/api-restauracion
           ports:
-            - containerPort: 8080
+            - containerPort: 9098
