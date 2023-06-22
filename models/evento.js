@@ -40,6 +40,12 @@ const EventoSchema = Schema({
         type: Number
     },
 
+    imagen:{
+
+        type: String
+        
+    },
+
     estado:{
 
         type: Boolean,
